@@ -16,11 +16,11 @@ sub is_unique {
 
     return 0 if ( length($input) > 255 );
 
-    my @bitArray = (0) x 255;
+    my @bit_array = (0) x 255;
     foreach my $idx ( 0 .. length($input) ) {
         my $ord = ord( substr( $input, $idx, 1 ) );
-        return 0 if $bitArray[$ord];
-        $bitArray[$ord] = 1;
+        return 0 if @bit_array[$ord];
+        @bit_array[$ord] = 1;
     }
 
     return 1;
