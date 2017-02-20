@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use StringCompression qw(string_compression);
+use StringCompressionList qw(string_compression);
 
 use Test::More tests => 3;
 
