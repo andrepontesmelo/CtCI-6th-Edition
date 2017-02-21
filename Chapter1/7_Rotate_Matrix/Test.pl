@@ -5,7 +5,7 @@ use warnings;
 
 use RotateMatrix qw(rotate_matrix);
 
-use Test::More tests => 9;
+use Test::More tests => 4;
 
 my @m1x1 = (
     [ 1]

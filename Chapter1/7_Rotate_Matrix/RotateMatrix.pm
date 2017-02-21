@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-
 use strict;
 use warnings;
 
@@ -9,27 +8,47 @@ use Exporter qw(import);
 
 our @EXPORT_OK = qw(rotate_matrix);
 
-sub rotate_pos {
-    my $i           = shift;
-    my $j           = shift;
-    my $matrix_size = shift;
+sub get_next_pos {
+    my $pos = shift;
+    my $n   = shift;
 
-    return ( 'i' => $j, 'j' => $matrix_size - $i - 1 );
+    my @next_pos = ( $pos->[1], $n - $pos->[0] - 1 );
+    return \@next_pos;
+}
+
+sub ceil {
+    my $number = shift;
+    return sprintf( "%.0f", $number );
 }
 
 sub rotate_matrix {
-    my $matrix      = shift;
-    my $matrix_size = ( scalar @$matrix );
-    my @new_matrix  = ();
+    my $matrix = shift;
+    my $n      = ( scalar @$matrix );
 
-    foreach my $i ( 0 .. $matrix_size - 1 ) {
-        foreach my $j ( 0 .. $matrix_size - 1 ) {
-            my %new_pos = rotate_pos( $i, $j, $matrix_size );
-            $new_matrix[ $new_pos{'i'}][ $new_pos{'j'} ] = $matrix->[$i][$j];
+    foreach my $i ( 0 .. int( $n / 2 ) - 1 ) {
+        foreach my $j ( $i .. $n - 2 - $i ) {
+            my @pos = ( $i, $j );
+            rotate_pos( $matrix, \@pos );
         }
     }
 
-    return \@new_matrix;
+    return $matrix;
+}
+
+sub rotate_pos {
+    my $matrix = shift;
+    my $pos    = shift;
+    my $n      = ( scalar @$matrix );
+
+    # Queue will hold at most 2 items.
+    my @queue = ( $matrix->[ $pos->[0] ][ $pos->[1] ] );
+
+    for my $iteration ( 1 .. 4 ) {
+        my $next_pos = get_next_pos( $pos, $n );
+        push @queue, $matrix->[ $next_pos->[0] ][ $next_pos->[1] ];
+        $matrix->[ $next_pos->[0] ][ $next_pos->[1] ] = shift @queue;
+        $pos = $next_pos;
+    }
 }
 
 1;
