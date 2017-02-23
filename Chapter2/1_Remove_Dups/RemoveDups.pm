@@ -7,22 +7,32 @@ package RemoveDups;
 use Exporter qw(import);
 our @EXPORT_OK = qw(remove_dups);
 
-sub remove_dups {
-    my $list = shift;
-    my $last = $list;
-    my %set;
-
-    while ($last->[0]) {
+sub delete_values {
+    my $list  = shift;
+    my $value = shift;
+    my $last  = $list;
+    while ( $last->[0] ) {
         my $node = $last->[0];
 
-        if ( exists $set{ $node->[1] } ) {
+        if ( $node->[1] == $value ) {
             $last->[0] = $node->[0];
         }
         else {
-            $set{ $node->[1] } = undef;
             $last = $node;
         }
+    }
 
+    return 0;
+}
+
+sub remove_dups {
+    my $list = shift;
+    my $last = $list;
+
+    while ( $last->[0] ) {
+        my $node = $last->[0];
+
+        delete_values( $node, $node->[1] );
         $last = $node;
     }
 
