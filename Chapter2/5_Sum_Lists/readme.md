@@ -16,8 +16,10 @@ Output: 2 -> 1 -> 9. That is, 912.
 We'll walk through both linked lists and sum each pair of digits with the carrying value (if any).
 Then we'll append the least significant digit into the result, and pass the most significant digit as carrying.
 
-### One iteration
+If the input is in the reversed order, then we could first create new inputs reversing them.
+But this would have the cost of creating another two linked lists. As alternative, we can build a recursive sum method in order to perform the sum from right to left. In this last solution we need to take care of the cases when the length of inputs differ. We solve this case by padding left zeros in the smaller number so that they both end up with the same length.
 
+### One iteration
 
 Solution       | Run-time Complexity | Space Complexity
 -------------- | ------------------- | ----------------
