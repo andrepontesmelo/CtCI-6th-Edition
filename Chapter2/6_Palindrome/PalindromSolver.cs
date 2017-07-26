@@ -4,11 +4,15 @@ namespace Palindrom
 {
     public abstract class PalindromSolver
     {
-        public abstract bool IsPalindrom(Node a);
+        protected Node sentinel;
 
-        public static Node FromString(string str)
+        public Node Sentinel => sentinel;
+        
+        public abstract bool IsPalindrom();
+
+        public PalindromSolver(string str)
         {
-            Node sentinel = Node.BuildSentinel();
+            sentinel  = Node.BuildSentinel();
             Node node = sentinel;
             
             foreach (char c in str)
@@ -16,8 +20,11 @@ namespace Palindrom
                 node.Next = new Node(c);
                 node = node.Next;
             }
+        }
 
-            return sentinel;
+        public override string ToString()
+        {
+            return sentinel.ToString();
         }
     }
 }

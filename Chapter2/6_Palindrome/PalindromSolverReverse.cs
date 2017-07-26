@@ -4,26 +4,35 @@ namespace Palindrom
 {
     public class PalindromSolverReverse : PalindromSolver
     {
-        public override bool IsPalindrom(Node a)
+        public override bool IsPalindrom()
         {
-            Node r = Reverse(a);
+            return Matches(Reverse());
+        }
 
-            while (a != null)
+        public bool Matches(Node b)
+        {
+            Node a = sentinel;
+
+            while (a != null && b != null)
             {
-                if (a.X != r.X)
+                if (a.X != b.X)
                     return false;
                 
                 a = a.Next;
-                r = r.Next;
+                b = b.Next;
             }
 
-            return true;
+            return a == b;
         }
 
-        public Node Reverse(Node a)
+        public bool Matches(PalindromSolverReverse other)
         {
-            // Skip sentinel
-            a = a.Next;
+            return Matches(other.Sentinel);
+        }
+
+        public Node Reverse()
+        {
+            Node a = sentinel.Next;
 
             Node node = new Node();
 
@@ -39,6 +48,15 @@ namespace Palindrom
             }
 
             return node;
+        }
+
+        public static PalindromSolverReverse FromString(string str)
+        {
+            return new PalindromSolverReverse(str);
+        }
+
+        public PalindromSolverReverse(string str) : base(str)
+        {
         }
     }
 }
