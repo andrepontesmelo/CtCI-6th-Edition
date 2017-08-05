@@ -12,17 +12,26 @@ we just need to compare the input with it's reversed copy.
 
 If the input is a palindrome, then it should match it's reversed version.
 
+
 ### Stack
 
 We can use a stack to put the characters until we reach the middle of the string.
 Then we start popping the elements from stack and compare if it matches the end of the string.
 In order to know if we reach the middle of the string, we can count it.
 
+### Recursive
+
+We'll work with two Node pointers. One will be passed as parameter and will iterate over all the input string.
+The other will be returned in the result of the recursive function. This last node will be the character in the 
+right side of the string that needs to be compared with the corresponding one in the left side.
+
+We'll need to know the size of the string from the beginning, and will pass as argument a countdown that will start as the full length and will be zero in the middle of the string. For each iteration of the recursive call, we'll decrement the countdown by two.
+
+
 Solution       | Run-time Complexity | Space Complexity
 -------------- | ------------------- | ----------------
 Reverse        | O(n)                | O(n)
 Stack          | O(n)                | O(n)
+Recursive      | O(n)                | O(n)
 
 - **n** - number of characters of the input string
-
-

@@ -11,18 +11,25 @@ namespace Palindrom
 
         public override bool IsPalindrom()
         {
-            int count = Count();
-
             Stack<char> stack = new Stack<char>();
             Node node = sentinel.Next;
+            Node runner = node;
+            bool isOdd = false;
 
-            for (int x = 0; x < count / 2; x++)
+            while (runner != null)
             {
                 stack.Push(node.X);
                 node = node.Next;
+
+                runner = runner.Next;
+
+                if (runner != null)
+                    runner = runner.Next;
+                else
+                    isOdd = true;
             }
 
-            if (count % 2 == 1)
+            if (isOdd)
                 node = node.Next;
 
             while (node != null)
