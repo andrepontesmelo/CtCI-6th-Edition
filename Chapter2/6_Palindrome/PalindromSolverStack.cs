@@ -18,13 +18,15 @@ namespace Palindrom
 
             while (runner != null)
             {
-                stack.Push(node.X);
-                node = node.Next;
-
                 runner = runner.Next;
 
                 if (runner != null)
+                {
+                    stack.Push(node.X);
+                    node = node.Next;
+
                     runner = runner.Next;
+                }
                 else
                     isOdd = true;
             }
